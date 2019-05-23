@@ -770,7 +770,10 @@ namespace Macaron.BitmapFontImporter.Editor
 
         private bool TryGetImportPath(out string path)
         {
-            var directoryName = Directory.Exists(_lastImportDirectory) ? _lastImportDirectory : Application.dataPath;
+            var dataPath = Application.dataPath;
+            var directoryName = Directory.Exists(_lastImportDirectory) && _lastImportDirectory.StartsWith(dataPath) ?
+                _lastImportDirectory :
+                dataPath;
             var fileName = Path.GetFileNameWithoutExtension(_fntPath);
 
             // 생성할 폰트 경로 입력받기.
